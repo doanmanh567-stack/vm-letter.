@@ -1,0 +1,27 @@
+{
+  "id": "./",
+  "name": "V/M LETTER",
+  "short_name": "V/M LETTER",
+  "description": "Studio tạo ảnh chữ viết tay, tối ưu cho iPhone.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "lang": "vi",
+  "icons": [
+    {
+      "src": "icons/letter-custom-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "icons/letter-custom-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}

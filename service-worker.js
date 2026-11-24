@@ -1,0 +1,6 @@
+const CACHE='vm22-premium-v1.3.2';
+const ROOT=new URL('./',self.location.href);const INDEX=new URL('index.html',ROOT).href;
+const SHELL=['index.html','manifest.webmanifest','icons/letter-custom-180.png','icons/letter-custom-192.png','icons/letter-custom-512.png'].map(x=>new URL(x,ROOT).href);
+self.addEventListener('install',e=>e.waitUntil((async()=>{const c=await caches.open(CACHE);await c.addAll(SHELL.map(u=>new Request(u,{cache:'reload'})));await self.skipWaiting()})()));
+self.addEventListener('activate',e=>e.waitUntil((async()=>{for(const k of await caches.keys())if(k.startsWith('vm22-premium-')&&k!==CACHE)await caches.delete(k);await self.clients.claim()})()));
+self.addEventListener('fetch',e=>{const r=e.request,u=new URL(r.url);if(r.method!=='GET'||u.origin!==ROOT.origin)return;if(r.mode==='navigate'){e.respondWith((async()=>{try{const response=await fetch(r);if(response.ok && (u.pathname===ROOT.pathname||u.pathname===new URL(INDEX).pathname)){const c=await caches.open(CACHE);await c.put(INDEX,response.clone())}return response}catch(err){return (await caches.open(CACHE)).match(INDEX)}})());return;}if(SHELL.includes(u.href))e.respondWith((async()=>{const c=await caches.open(CACHE);return await c.match(r)||await fetch(r)})())});
